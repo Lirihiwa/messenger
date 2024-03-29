@@ -39,7 +39,7 @@ namespace messenger
             string name = name_TextBox.Text.Trim();
             string password = password_PasswordBox.Password.Trim();
 
-            if(DataBase.TryEnter(name, password))
+            if(DBControl.TryEnter(name, password))
             {
                 User.GlobalUser = name;
                 NavigationService.Navigate(new MessengerMainPage());

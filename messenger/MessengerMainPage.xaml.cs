@@ -25,14 +25,16 @@ namespace messenger
         {
             InitializeComponent();
 
-            Acc.Text = User.GlobalUser;
+            Acc.Content = User.GlobalUser;
         }
 
         private void ShowChats_Click(object sender, RoutedEventArgs e)
         {
-            AllowedChats_ScrollViewer.Content = DataBase.GetAllowedChats() + "ksk\ndfsd\ndsfdf\nsdfsf\n";
+            AllowedChats_ScrollViewer.Content = DBControl.GetAllowedChats();
 
-            
+            showChatsButton.Content = "Обновить";
+
+            //Это просто ненужный код, но потом он может пригодиться)
             //OpenFileDialog op = new OpenFileDialog();
             //op.Title = "Select a picture";
             //op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
@@ -42,6 +44,43 @@ namespace messenger
             //{
             //    PICTURE.Source = new BitmapImage(new Uri(op.FileName));
             //}
+        }
+
+        private void CreateChat_Click(object sender, RoutedEventArgs e)
+        {
+            string name = chatName.Text.Trim();
+            string password = chatPass.Text.Trim();
+
+            if(name == "")
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Введите название чата!";
+            }
+            else if(name.Length > 12)
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Название чата слишком длинное(max 12)!";
+            }
+            else if(password == "")
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Введите пароль!";
+            }
+            else if(password.Length > 16)
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Пароль слишком длинный(max 16)!";
+            }
+            else if(DBControl.CreateChat(name, password))
+            {
+                errorContent.Foreground = Brushes.Green;
+                errorContent.Content = "Чат успешно создан!";
+            }
+            else
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Чат уже существует!";
+            }
         }
     }
 }

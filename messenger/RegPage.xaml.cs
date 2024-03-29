@@ -51,7 +51,7 @@ namespace messenger
                     error_Label.Foreground = Brushes.Red;
                     error_Label.Content = "Введите корректный  email.";
                 }
-                else if (DataBase.CreateAccount(name, age, email, password))
+                else if (DBControl.CreateAccount(name, age, email, password))
                 {
                     error_Label.Foreground = Brushes.Green;
                     error_Label.Content = "Аккаунт успешно создан.";

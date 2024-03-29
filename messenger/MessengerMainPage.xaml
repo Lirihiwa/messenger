@@ -9,9 +9,22 @@
       Title="MessengerMainPage">
 
     <Grid>
-        <ScrollViewer x:Name="AllowedChats_ScrollViewer" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,50" Height="100" Width="300" FontFamily="arial" FontSize="28" Content=""></ScrollViewer>
-        <Button HorizontalAlignment="Left" Content="Отобразить доступные чаты" FontFamily="arial" VerticalAlignment="Bottom" Margin="20,0,0,120" Height ="40" Width="200" Click="ShowChats_Click"></Button>
-        <Image Name="PICTURE" Height="200" Width="400" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0"></Image>
-        <TextBlock x:Name="Acc" Height="50" Width="200" FontFamily="arial" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" FontSize="20"></TextBlock>
+        <Image Height="450" Width="800" Source="/MAINPAGE_bg.jpg" Panel.ZIndex="-1"></Image>
+        <ScrollViewer x:Name="AllowedChats_ScrollViewer" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,50" Height="100" Width="300" FontFamily="arial" FontSize="28" Content="" Foreground="White"></ScrollViewer>
+        <Button x:Name="showChatsButton" HorizontalAlignment="Left" Content="Отобразить доступные чаты" FontFamily="arial" VerticalAlignment="Bottom" Margin="20,0,0,120" Height ="40" Width="200" Click="ShowChats_Click"></Button>
+        <Label x:Name="Acc" Height="50" Width="200" FontFamily="arial" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" FontSize="20" Foreground="White"></Label>
+
+        <Label Content="Название: " Height="30" Foreground="White" FontFamily="arial" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,130"></Label>
+        <Label Content="Пароль: " Height="30" Foreground="White" FontFamily="arial" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,30"></Label>
+
+        <TextBox x:Name="chatName" Height="30" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="450,0,0,130"></TextBox>
+        <TextBox x:Name="chatPass" Height="30" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="450,0,0,30"></TextBox>
+
+        <Button Content="Войти в чат" Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="300,90,0,0"></Button>
+        <Button Content="Создать чат" Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="550,90,0,0" Click="CreateChat_Click"></Button>
+
+        <Label Content="*Для общих чатов пароль - 0" Height="30" Width="150" Foreground="White" FontFamily="arial" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,30,0,0"></Label>
+        <Label x:Name="errorContent" Height="30" Width="250" Foreground="White" FontFamily="arial" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,80,50,0"></Label>
+
     </Grid>
 </Page>
