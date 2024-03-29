@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\messengermainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\messengermainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\messengermainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\messengermainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\enterpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\enterpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\enterpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\enterpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\regpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\regpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|c:\\users\\lirihiwa\\source\\repos\\messenger\\messenger\\regpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C000B697-5D9C-4F84-8303-0F34FDC8B63B}|messenger\\messenger.csproj|solutionrelative:messenger\\regpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "messenger\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MainWindow.xaml.cs",
+              "RelativeToolTip": "messenger\\MainWindow.xaml.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAAJUAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-17T15:01:51.382Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EnterPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\EnterPage.xaml",
+              "RelativeDocumentMoniker": "messenger\\EnterPage.xaml",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\EnterPage.xaml",
+              "RelativeToolTip": "messenger\\EnterPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-19T17:06:51.426Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EnterPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\EnterPage.xaml.cs",
+              "RelativeDocumentMoniker": "messenger\\EnterPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\EnterPage.xaml.cs",
+              "RelativeToolTip": "messenger\\EnterPage.xaml.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAACoAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T08:13:59.945Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "messenger\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MainWindow.xaml",
+              "RelativeToolTip": "messenger\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-26T19:57:28.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MessengerMainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MessengerMainPage.xaml.cs",
+              "RelativeDocumentMoniker": "messenger\\MessengerMainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MessengerMainPage.xaml.cs",
+              "RelativeToolTip": "messenger\\MessengerMainPage.xaml.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAowBkAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T16:47:39.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MessengerMainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MessengerMainPage.xaml",
+              "RelativeDocumentMoniker": "messenger\\MessengerMainPage.xaml",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\MessengerMainPage.xaml",
+              "RelativeToolTip": "messenger\\MessengerMainPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-26T15:52:10.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\RegPage.xaml.cs",
+              "RelativeDocumentMoniker": "messenger\\RegPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\RegPage.xaml.cs",
+              "RelativeToolTip": "messenger\\RegPage.xaml.cs",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAAAE4AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T10:54:08.035Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\RegPage.xaml",
+              "RelativeDocumentMoniker": "messenger\\RegPage.xaml",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\RegPage.xaml",
+              "RelativeToolTip": "messenger\\RegPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-20T10:54:06.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\User.cs",
+              "RelativeDocumentMoniker": "messenger\\User.cs",
+              "ToolTip": "C:\\Users\\Lirihiwa\\source\\repos\\messenger\\messenger\\User.cs",
+              "RelativeToolTip": "messenger\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-18T22:33:34.004Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

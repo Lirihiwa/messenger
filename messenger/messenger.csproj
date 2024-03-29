@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="a04670bc46fb69817b4220dad637af0f.png" />
+    <None Remove="MAINPAGE_bg.jpg" />
+    <None Remove="mdksfg.png" />
+    <None Remove="pngwifshf.com.png" />
+    <None Remove="pngwing.com.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="a04670bc46fb69817b4220dad637af0f.png" />
+    <Resource Include="MAINPAGE_bg.jpg" />
+    <Resource Include="mdksfg.png" />
+    <Resource Include="pngwifshf.com.png" />
+    <Resource Include="pngwing.com.png" />
+  </ItemGroup>
+
+</Project>
