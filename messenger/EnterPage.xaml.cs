@@ -41,7 +41,7 @@ namespace messenger
 
             if(DBControl.TryEnter(name, password))
             {
-                User.GlobalUser = name;
+                InfoClass.GlobalUser = name;
                 NavigationService.Navigate(new MessengerMainPage());
             }
             else

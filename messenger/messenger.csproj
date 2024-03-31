@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="129240-chirok-biryuza-polnoch-sinij-tekst-7680x4320.jpg" />
+    <None Remove="1613300916_179-p-sinii-fon-bez-nichego-odnotonnii-231.png" />
+    <None Remove="1613316449_27-p-svetlo-sinii-fon-dlya-fotoshopa-30.jpg" />
+    <None Remove="934881-full-size-green-background-images-3240x2160.jpg" />
     <None Remove="a04670bc46fb69817b4220dad637af0f.png" />
     <None Remove="MAINPAGE_bg.jpg" />
     <None Remove="mdksfg.png" />
@@ -22,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="129240-chirok-biryuza-polnoch-sinij-tekst-7680x4320.jpg" />
+    <Resource Include="1613300916_179-p-sinii-fon-bez-nichego-odnotonnii-231.png" />
+    <Resource Include="1613316449_27-p-svetlo-sinii-fon-dlya-fotoshopa-30.jpg" />
+    <Resource Include="934881-full-size-green-background-images-3240x2160.jpg" />
     <Resource Include="a04670bc46fb69817b4220dad637af0f.png" />
     <Resource Include="MAINPAGE_bg.jpg" />
     <Resource Include="mdksfg.png" />

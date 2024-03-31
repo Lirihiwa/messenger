@@ -25,13 +25,14 @@ namespace messenger
         {
             InitializeComponent();
 
-            Acc.Content = User.GlobalUser;
+            Acc.Content = "Пользователь: \n" + InfoClass.GlobalUser;
         }
 
         private void ShowChats_Click(object sender, RoutedEventArgs e)
         {
             AllowedChats_ScrollViewer.Content = DBControl.GetAllowedChats();
 
+            showChatsButton.Background = Brushes.LightGray;
             showChatsButton.Content = "Обновить";
 
             //Это просто ненужный код, но потом он может пригодиться)
@@ -81,6 +82,28 @@ namespace messenger
                 errorContent.Foreground = Brushes.Red;
                 errorContent.Content = "Чат уже существует!";
             }
+        }
+
+        private void EnterChat_Click(object sender, RoutedEventArgs e)
+        {
+            string name = chatName.Text.Trim();
+            string password = chatPass.Text.Trim();
+
+            if(!DBControl.OpenChat(name, password))
+            {
+                errorContent.Foreground = Brushes.Red;
+                errorContent.Content = "Ошибка входа: Проверьте введенные данные!";
+            }
+            else
+            {
+                InfoClass.GlobalChatName = name;
+                NavigationService.Navigate(new ChatPage());
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AuthPage());
         }
     }
 }

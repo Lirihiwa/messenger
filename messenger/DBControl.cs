@@ -1,10 +1,12 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace messenger
 {
@@ -199,6 +201,63 @@ namespace messenger
             }
 
             return wasCreate;
+        }
+
+        public static bool OpenChat(string name, string password)
+        {
+            bool isCreated = false;
+
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                string createChatCommand = $"CREATE TABLE public.\"{name}\" (message_id bigint PRIMARY KEY, sender character varying(12), message character varying(180));";
+                string findChat = $"SELECT * FROM pg_catalog.pg_tables WHERE tablename LIKE '{name}'";
+                string findChatInChatsTable = $"SELECT * FROM chats WHERE chat_name LIKE '{name}'";
+                
+                using(var command =  new NpgsqlCommand(findChatInChatsTable , conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    if (!reader.HasRows)
+                    {
+                        return false;
+                    }
+
+                    reader.Read();
+
+                    if(reader.GetString(1) != password)
+                    {
+                        return false;
+                    }
+
+                    reader.Close();
+                    command.ExecuteNonQuery();
+                }
+
+                using(var command = new NpgsqlCommand(findChat , conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        isCreated = true;
+                    }
+
+                    reader.Close();
+                    command.ExecuteNonQuery();
+                }
+
+                if (!isCreated)
+                {
+                    using(var command = new NpgsqlCommand(createChatCommand, conn))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

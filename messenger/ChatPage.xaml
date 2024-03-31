@@ -1,0 +1,18 @@
+﻿<Page x:Class="messenger.ChatPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:messenger"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ChatPage">
+
+    <Grid>
+        <Image Height="450" Width="800" Source="/1613300916_179-p-sinii-fon-bez-nichego-odnotonnii-231.png" Stretch="Fill" Panel.ZIndex="-2"></Image>
+        <Image Height="450" Width="100" Source="/1613316449_27-p-svetlo-sinii-fon-dlya-fotoshopa-30.jpg" Stretch="Fill" HorizontalAlignment="Left" Panel.ZIndex="-1"></Image>
+        <Border Height="460" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,697,0" BorderBrush ="LightBlue" BorderThickness="5"></Border>
+
+        <ScrollViewer x:Name="ChatViewer" Height="450" Width="680" HorizontalAlignment="Right"></ScrollViewer>
+    </Grid>
+</Page>
