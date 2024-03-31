@@ -23,6 +23,40 @@ namespace messenger
         public ChatPage()
         {
             InitializeComponent();
+
+            chatName.Content = "Чат: " + InfoClass.GlobalChatName;
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            string chatName = InfoClass.GlobalChatName;
+            ChatViewer.Content = DBControl.UpdateChat(chatName);
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            string username = InfoClass.GlobalUser;
+            string chatName = InfoClass.GlobalChatName;
+            string message = messageText.Text.Trim();
+
+            DBControl.SendMessage(username, chatName, message);
+
+            messageText.Text = "";
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MessengerMainPage());
         }
     }
 }

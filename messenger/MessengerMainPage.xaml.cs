@@ -96,7 +96,6 @@ namespace messenger
             }
             else
             {
-                InfoClass.GlobalChatName = name;
                 NavigationService.Navigate(new ChatPage());
             }
         }

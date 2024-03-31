@@ -161,9 +161,8 @@ namespace messenger
                     reader.Close();
                 }
 
-            conn.Dispose();
-            }
-            
+                conn.Close();
+            }     
             
             return chats;
         }
@@ -211,7 +210,7 @@ namespace messenger
             {
                 conn.Open();
 
-                string createChatCommand = $"CREATE TABLE public.\"{name}\" (message_id bigint PRIMARY KEY, sender character varying(12), message character varying(180));";
+                string createChatCommand = $"CREATE TABLE public.\"{name}\" (message_id SERIAL PRIMARY KEY, sender character varying(12), message character varying(180));";
                 string findChat = $"SELECT * FROM pg_catalog.pg_tables WHERE tablename LIKE '{name}'";
                 string findChatInChatsTable = $"SELECT * FROM chats WHERE chat_name LIKE '{name}'";
                 
@@ -257,7 +256,126 @@ namespace messenger
                 }
             }
 
+            InfoClass.GlobalChatName = name;
+
             return true;
+        }
+
+        public static string GetAllMessageFromUser(string username, string chatName)
+        {
+            string messages = "";
+            int messagesCount = 0;
+
+            using(var conn =  new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using (var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{chatName}\"", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    messagesCount = reader.GetInt32(0);
+
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            using(var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand($"SELECT * FROM \"{chatName}\" WHERE sender LIKE '{username}'", conn);
+
+                var reader = command.ExecuteReader();
+
+                string endOfMessage = "\n\n";
+
+                int i = 1;
+                while (reader.Read())
+                {
+                    if(i == messagesCount)
+                    {
+                        endOfMessage = "";
+                    }
+                    messages += reader.GetString(1) + "\n" + reader.GetString(2) + endOfMessage;
+
+                    i++;
+                }
+
+                reader.Close();
+                conn.Close();
+            }
+
+            return messages;
+        }
+
+        public static void SendMessage(string username, string chatName, string message)
+        {
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using (var command = new NpgsqlCommand($"INSERT INTO \"{chatName}\" (sender, message) VALUES('{username}', '{message}')", conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public static string UpdateChat(string chatName)
+        {
+            string updatedChat = "";
+            int messagesCount = 0;
+
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using (var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{chatName}\"", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    messagesCount = reader.GetInt32(0);
+
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand($"SELECT * FROM \"{chatName}\"", conn);
+
+                var reader = command.ExecuteReader();
+
+                int i = 1;
+                while (reader.Read())
+                {
+                    string endOfMessage = "\n\n";
+
+                    if (i == messagesCount)
+                    {
+                        endOfMessage = "";
+                    }
+                    updatedChat += "(-> " + reader.GetString(1) + " <-)" + "{\n" + reader.GetString(2) + "\n}" + endOfMessage;
+
+                    i++;
+                }
+
+                reader.Close();
+                conn.Close();
+            }
+
+            return updatedChat;
         }
     }
 }
