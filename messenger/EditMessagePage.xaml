@@ -9,6 +9,10 @@
       Title="EditMessagePage">
 
     <Grid>
-        <Button Height="40" Width="100" Content="Посмотреть"></Button>
+        <Button Height="60" Width="140" Content="Посмотреть" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20" FontFamily="arial" FontSize="20" Click="Look_Button"></Button>
+        <!--<Button Height="60" Width="140" Content="Закрыть" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" FontFamily="arial" FontSize="20" Click="Back_Button"></Button>-->
+        
+        <ScrollViewer x:Name="messagesViewer" Height="300" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"></ScrollViewer>
+        <Border BorderThickness="2" BorderBrush="White" Height="304" Width="404" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,18,0,0"></Border>
     </Grid>
 </Page>

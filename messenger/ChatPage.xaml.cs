@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.CodeDom;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace messenger
 {
@@ -20,16 +25,30 @@ namespace messenger
     /// </summary>
     public partial class ChatPage : Page
     {
+        BackgroundWorker chatUpdater;
+
         public ChatPage()
         {
             InitializeComponent();
 
+            InfoClass.GlobalLastMessagesCount = DBControl.GetCurrentMessagesCount();
+            List<string> messages = DBControl.GetAllMassagesFromChat();            
+
             chatName.Content = "Чат: " + InfoClass.GlobalChatName;
+            LoadChat(messages);
+
+            chatUpdater = new BackgroundWorker();
+            chatUpdater.DoWork += (obj, ea) => UpdateChat();
+            chatUpdater.RunWorkerAsync();
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            var editWindow = new EditDelete();
 
+            editWindow.Content = new EditMessagePage();
+
+            editWindow.Show();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -37,19 +56,23 @@ namespace messenger
 
         }
 
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
-            string chatName = InfoClass.GlobalChatName;
-            ChatViewer.Content = DBControl.UpdateChat(chatName);
+        private void ScrollDown_Click(object sender, RoutedEventArgs e)
+        { 
+            ChatViewer.ScrollToBottom();
         }
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            string username = InfoClass.GlobalUser;
-            string chatName = InfoClass.GlobalChatName;
             string message = messageText.Text.Trim();
+            if(message.Length > 50 )
+            {
+                messageText.Text = "Сообщение слишком длинное( " + message.Length + "/50)";
 
-            DBControl.SendMessage(username, chatName, message);
+                return;
+            }
+            DBControl.SendMessage(message);
+
+            ChatViewer.ScrollToBottom();
 
             messageText.Text = "";
         }
@@ -57,6 +80,122 @@ namespace messenger
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MessengerMainPage());
+        }
+
+        private void LoadChat(List<string> messages)
+        {
+            string color;
+            string sender;
+            string message;
+
+            while (messages.Count > 0)
+            {
+                sender = messages[0];
+                message = messages[1];
+                color = messages[2];
+
+                string authorIsUser = "";
+                if (InfoClass.GlobalUser == sender)
+                {
+                    authorIsUser = InfoClass.GlobalDelta;
+                }
+
+                ChatViewer.Content += authorIsUser + sender + ": " + message;
+                
+                if (messages.Count != 3)
+                {
+                    ChatViewer.Content += "\n\n";
+                }
+                
+                for (int i = 0; i < 3; i++) 
+                { 
+                    messages.RemoveAt(0); 
+                }
+            }
+        }
+
+        private void UpdateChat()
+        {
+            while(true)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(0.1));
+
+                bool isChatScrollToTheEnd = false;
+                ChatViewer.Dispatcher.Invoke(delegate
+                {
+                    if (ChatViewer.VerticalOffset == ChatViewer.ScrollableHeight)
+                        isChatScrollToTheEnd = true;
+                });
+
+                if (isChatScrollToTheEnd)
+                {
+                    NewMessageAlert.Dispatcher.Invoke(delegate 
+                    {
+                        NewMessageAlert.Visibility = Visibility.Hidden;
+                    });
+                }
+
+                if (DBControl.NewMessageHasAppeared())
+                {
+                    List<string> messages = DBControl.GetAllMassagesFromChat();
+
+                    int newMesagesCount = DBControl.NewMessagesCount();                    
+                    
+                    for(int i = newMesagesCount; i > 0; i--)
+                    {
+                        string sender = messages[messages.Count - (i * 3)];
+                        string message = messages[messages.Count - (i * 3 - 1)];
+                        string color = messages[messages.Count - (i * 3 - 2)];
+
+                        string authorIsUser = "";
+                        if(InfoClass.GlobalUser ==  sender)
+                        {
+                            authorIsUser = InfoClass.GlobalDelta;
+                        }
+
+                        ChatViewer.Dispatcher.Invoke(delegate 
+                        { 
+                            ChatViewer.Content += "\n\n" + authorIsUser + sender + ": " + message;
+                        });
+
+                        ChatViewer.Dispatcher.Invoke(delegate
+                        {
+                            if(ChatViewer.VerticalOffset ==  ChatViewer.ScrollableHeight) 
+                                isChatScrollToTheEnd = true;
+                        });
+
+                        NewMessageAlert.Dispatcher.Invoke(delegate
+                        {
+                            if (!isChatScrollToTheEnd)
+                            {
+                                NewMessageAlert.Visibility = Visibility.Visible;
+                            }
+                        });
+                    }
+                }
+            }            
+        }
+
+        private SolidColorBrush SelectedColor(string color)
+        {
+            if (color == "White")
+            {
+                return Brushes.White;
+            }
+            else if (color == "Gold")
+            {
+                return Brushes.Gold;
+            }
+            else if (color == "HotPink")
+            {
+                return Brushes.HotPink;
+            }
+            else if (color == "Coral")
+            {
+                return Brushes.Coral;
+            }
+
+            return Brushes.White;
         }
     }
 }

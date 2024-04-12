@@ -11,15 +11,15 @@
     <Grid>
         <Image HorizontalAlignment="Left" Height="455" Margin="-7,-9,0,0" VerticalAlignment="Top" Width="810" Source="/MAINPAGE_bg.jpg" Grid.RowSpan="2"/>
 
-        <Label Content="Логин :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,50,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
-        <Label Content="Возраст :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,90,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
-        <Label Content="Email :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,130,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
-        <Label Content="Пароль :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,170,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
+        <Label Content="Логин :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
+        <Label Content="Возраст :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
+        <Label Content="Email :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
+        <Label Content="Пароль :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,170,0,0" FontFamily="arial" FontWeight="Black" FontSize="20" Foreground="White" Width="150" Height="30"></Label>
         
-        <TextBox x:Name="name_TextBox" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
-        <TextBox x:Name="age_TextBox" HorizontalAlignment="Center" Margin="0,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
-        <TextBox x:Name="email_TextBox" HorizontalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
-        <PasswordBox x:Name="password_PasswordBox" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
+        <TextBox x:Name="name_TextBox" HorizontalAlignment="Left" Margin="170,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
+        <TextBox x:Name="age_TextBox" HorizontalAlignment="Left" Margin="170,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
+        <TextBox x:Name="email_TextBox" HorizontalAlignment="Left" Margin="170,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
+        <PasswordBox x:Name="password_PasswordBox" HorizontalAlignment="Left" Margin="170,170,0,0" VerticalAlignment="Top" Width="150" Height="30" Grid.RowSpan="2" Background="#00FFFFFF" Foreground="White" Panel.ZIndex="2"/>
         
         <Label x:Name="error_Label" Content="" HorizontalAlignment="Center" Margin="480,50,0,0" VerticalAlignment="Top" Height="100" Width="300" Background="Transparent" Foreground="Red" FontFamily="Arial Black" FontSize="12" RenderTransformOrigin="0.5,0.5" Grid.Row="1"></Label>
 
@@ -28,10 +28,26 @@
         <Image Source="/mdksfg.png" Height="350" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0, -35"></Image>
         <Button Background="#00FFFFFF" Height="82" Width="125" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="33,103" Content="Назад" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Back_Click"></Button>
         <Image Source="/pngwing.com.png" Height="250" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-45,0,0,0"></Image>
-        <Button Content="Зарегаться" Height="63" Width="138" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="54,70" Background="#00ffffff" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Registration_Click">
+        <Button Content="Создать" Height="63" Width="138" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="54,70" Background="#00ffffff" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Registration_Click">
             <Button.RenderTransform>
                 <RotateTransform Angle="-21"></RotateTransform>
             </Button.RenderTransform>
         </Button>
+
+        <Label Content="Цвет: " FontSize="16" FontWeight="Black" HorizontalContentAlignment="Center" FontFamily="arial" Foreground="White" Height="30" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"></Label>
+        <ComboBox x:Name="ColorComboBox" Height="30" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,90,0,0">
+            <ComboBoxItem>
+                <TextBlock FontSize="16" Background="Black" Foreground="White">Белый</TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock FontSize="16" Foreground="HotPink">Розовый</TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock FontSize="16" Foreground="Gold">Золотой</TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock FontSize="16" Foreground="Coral">Коралловый</TextBlock>
+            </ComboBoxItem>
+        </ComboBox>
     </Grid>
 </Page>

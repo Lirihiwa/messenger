@@ -15,6 +15,7 @@ using Npgsql;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.ComponentModel;
 
 namespace messenger
 {
@@ -22,7 +23,7 @@ namespace messenger
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
+    
     public partial class MainWindow : Window
     {
         public MainWindow()

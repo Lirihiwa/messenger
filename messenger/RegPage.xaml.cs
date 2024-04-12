@@ -35,6 +35,24 @@ namespace messenger
                 int age = Convert.ToInt32(age_TextBox.Text.Replace(" ", ""));
                 string? email = email_TextBox.Text.Replace(" ", "");
                 string password = password_PasswordBox.Password.ToString().Replace(" ","");
+                string color = ColorComboBox.Text;
+                
+                if(color == "" || color == "Белый")
+                {
+                    color = "White";
+                }
+                else if(color == "Розовый")
+                {
+                    color = "HotPink";
+                }
+                else if (color == "Золотой")
+                {
+                    color = "Gold";
+                }
+                else if (color == "Коралловый")
+                {
+                    color = "Coral";
+                }
 
                 if (name.Trim() == "")
                 {
@@ -51,7 +69,7 @@ namespace messenger
                     error_Label.Foreground = Brushes.Red;
                     error_Label.Content = "Введите корректный  email.";
                 }
-                else if (DBControl.CreateAccount(name, age, email, password))
+                else if (DBControl.CreateAccount(name, age, email, password, color))
                 {
                     error_Label.Foreground = Brushes.Green;
                     error_Label.Content = "Аккаунт успешно создан.";

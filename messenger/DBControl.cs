@@ -29,6 +29,11 @@ namespace messenger
                     Port,
                     Password);
 
+        /// <summary>
+        /// Получение пароля из файла
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string GetPassword(string path)
         {
             string pass;
@@ -41,7 +46,16 @@ namespace messenger
             return pass;
         }
 
-        public static bool CreateAccount(string name, int age, string email, string password)
+        /// <summary>
+        /// Проверяет сущестует ли аккаунт, если не существует, то создает новый
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static bool CreateAccount(string name, int age, string email, string password, string color)
         {
             using (var conn = new NpgsqlConnection(ConnString))
             {
@@ -66,12 +80,13 @@ namespace messenger
 
                 if (userIsNotExistsAndPasswordNotNull)
                 {
-                    using (var command = new NpgsqlCommand("INSERT INTO users(name, age, email, password) VALUES (@p1, @p2, @p3, @p4)", conn))
+                    using (var command = new NpgsqlCommand("INSERT INTO users(name, age, email, password, color) VALUES (@p1, @p2, @p3, @p4, @p5)", conn))
                     {
                         command.Parameters.AddWithValue("p1", name);
                         command.Parameters.AddWithValue("p2", age);
                         command.Parameters.AddWithValue("p3", email);
                         command.Parameters.AddWithValue("p4", password);
+                        command.Parameters.AddWithValue("p5", color);
 
                         command.ExecuteNonQuery();
                     }
@@ -83,6 +98,12 @@ namespace messenger
             }
         }
 
+        /// <summary>
+        /// Проверяет существует ли пользователь с указанным именем и паролем
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool TryEnter(string name, string password)
         {
             bool canEnter = false;
@@ -111,6 +132,10 @@ namespace messenger
             return canEnter;
         }
 
+        /// <summary>
+        /// Собирает названия всех созданных чатов и их приватность
+        /// </summary>
+        /// <returns></returns>
         public static string GetAllowedChats()
         {
             string chats = "";
@@ -167,6 +192,12 @@ namespace messenger
             return chats;
         }
 
+        /// <summary>
+        /// Создает новый чат если имя не занято
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool CreateChat(string name, string password)
         {
             bool wasCreate = false;
@@ -202,6 +233,12 @@ namespace messenger
             return wasCreate;
         }
 
+        /// <summary>
+        /// Создает таблицу чата в БД если имя не занято
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool OpenChat(string name, string password)
         {
             bool isCreated = false;
@@ -210,7 +247,7 @@ namespace messenger
             {
                 conn.Open();
 
-                string createChatCommand = $"CREATE TABLE public.\"{name}\" (message_id SERIAL PRIMARY KEY, sender character varying(12), message character varying(180));";
+                string createChatCommand = $"CREATE TABLE public.\"{name}\" (message_id SERIAL PRIMARY KEY, sender character varying(12), message character varying(180), color character varying(12));";
                 string findChat = $"SELECT * FROM pg_catalog.pg_tables WHERE tablename LIKE '{name}'";
                 string findChatInChatsTable = $"SELECT * FROM chats WHERE chat_name LIKE '{name}'";
                 
@@ -261,7 +298,13 @@ namespace messenger
             return true;
         }
 
-        public static string GetAllMessageFromUser(string username, string chatName)
+        /// <summary>
+        /// Собирает все сообщения указанного пользователя
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="chatName"></param>
+        /// <returns></returns>
+        public static string GetAllMessageFromUser()
         {
             string messages = "";
             int messagesCount = 0;
@@ -270,7 +313,7 @@ namespace messenger
             {
                 conn.Open();
 
-                using (var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{chatName}\"", conn))
+                using (var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{InfoClass.GlobalChatName}\"", conn))
                 {
                     var reader = command.ExecuteReader();
 
@@ -287,7 +330,7 @@ namespace messenger
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand($"SELECT * FROM \"{chatName}\" WHERE sender LIKE '{username}'", conn);
+                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE sender LIKE '{InfoClass.GlobalUser}'", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -312,13 +355,19 @@ namespace messenger
             return messages;
         }
 
-        public static void SendMessage(string username, string chatName, string message)
+        /// <summary>
+        /// Записывает сообщение в таблицу чата
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="chatName"></param>
+        /// <param name="message"></param>
+        public static void SendMessage(string message)
         {
             using (var conn = new NpgsqlConnection(ConnString))
             {
                 conn.Open();
 
-                using (var command = new NpgsqlCommand($"INSERT INTO \"{chatName}\" (sender, message) VALUES('{username}', '{message}')", conn))
+                using (var command = new NpgsqlCommand($"INSERT INTO \"{InfoClass.GlobalChatName}\" (sender, message, color) VALUES('{InfoClass.GlobalUser}', '{message}', (SELECT color FROM users WHERE name LIKE '{InfoClass.GlobalUser}'))", conn))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -327,55 +376,92 @@ namespace messenger
             }
         }
 
-        public static string UpdateChat(string chatName)
+        /// <summary>
+        /// Собирает все сообщения в формате(отправитель, сообщение, цвет отправителя) в список
+        /// </summary>
+        /// <param name="chatName"></param>
+        /// <returns></returns>
+        public static List<string> GetAllMassagesFromChat()
         {
-            string updatedChat = "";
-            int messagesCount = 0;
+            List<string> parameters = new List<string>();
 
             using (var conn = new NpgsqlConnection(ConnString))
             {
                 conn.Open();
 
-                using (var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{chatName}\"", conn))
-                {
-                    var reader = command.ExecuteReader();
-
-                    reader.Read();
-                    messagesCount = reader.GetInt32(0);
-
-                    reader.Close();
-                }
-
-                conn.Close();
-            }
-
-            using (var conn = new NpgsqlConnection(ConnString))
-            {
-                conn.Open();
-
-                var command = new NpgsqlCommand($"SELECT * FROM \"{chatName}\"", conn);
+                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\"", conn);
 
                 var reader = command.ExecuteReader();
 
-                int i = 1;
                 while (reader.Read())
                 {
-                    string endOfMessage = "\n\n";
-
-                    if (i == messagesCount)
-                    {
-                        endOfMessage = "";
-                    }
-                    updatedChat += "(-> " + reader.GetString(1) + " <-)" + "{\n" + reader.GetString(2) + "\n}" + endOfMessage;
-
-                    i++;
+                    parameters.Add(reader.GetString(1));
+                    parameters.Add(reader.GetString(2));
+                    parameters.Add(reader.GetString(3));
                 }
 
                 reader.Close();
                 conn.Close();
             }
 
-            return updatedChat;
+            return parameters;
+        }
+
+        /// <summary>
+        /// Считывает с БД количество сообщений на текущий момент
+        /// </summary>
+        public static int GetCurrentMessagesCount()
+        {
+            int count;
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using(var command = new NpgsqlCommand($"SELECT COUNT(*) FROM \"{InfoClass.GlobalChatName}\"", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    count = reader.GetInt32(0);
+                }
+
+                conn.Close();                
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Проверяет чат на наличие новых сообщений
+        /// </summary>
+        /// <param name="chatName"></param>
+        /// <param name="lastMessagesCount"></param>
+        /// <returns></returns>
+        public static bool NewMessageHasAppeared()
+        {
+            bool HasAppeared = false;
+            int messagesCount = GetCurrentMessagesCount();
+
+            if(messagesCount != InfoClass.GlobalLastMessagesCount)
+            {
+                HasAppeared = true;                
+            }
+
+            return HasAppeared;
+        }
+
+        /// <summary>
+        /// Определяет сколько новых сообщений повилось в чате
+        /// </summary>
+        /// <returns></returns>
+        public static int NewMessagesCount()
+        {
+            int messagesCount = GetCurrentMessagesCount();
+
+            int newMessages = messagesCount - InfoClass.GlobalLastMessagesCount;
+
+            InfoClass.GlobalLastMessagesCount = messagesCount;
+
+            return newMessages;
         }
     }
 }

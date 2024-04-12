@@ -16,9 +16,9 @@
         <Label Content="Выберите действие" Foreground="LightGreen" FontFamily="arial" FontWeight="Black" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,90,0,0"></Label>
         
         <Image Source="/a04670bc46fb69817b4220dad637af0f.png" Height="350" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0, -35"></Image>
-        <Button x:Name="enterButtom" Background="#00FFFFFF" Height="82" Width="125" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="33,103" Content="Войти" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Enter_Click"></Button>
+        <Button x:Name="enterButtom" Background="#00FFFFFF" Height="82" Width="125" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="33,103" Content="Вход" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Enter_Click"></Button>
         <Image Source="/pngwing.com.png" Height="250" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-45,0,0,0"></Image>
-        <Button Content="Зарегаться" Height="63" Width="138" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="54,70" Background="#00ffffff" FontFamily="arial" FontSize="24" BorderBrush="#00ffffff" Click="Registration_Click">
+        <Button Content="Регистрация" Height="63" Width="138" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="54,70" Background="#00ffffff" FontFamily="arial" FontSize="23" BorderBrush="#00ffffff" Click="Registration_Click">
             <Button.RenderTransform>
                 <RotateTransform Angle="-21"></RotateTransform>
             </Button.RenderTransform>
