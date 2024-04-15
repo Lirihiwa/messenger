@@ -16,14 +16,27 @@
         <Label x:Name="chatName" Height="40" Width="660" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="arial" FontSize="20" Foreground="White"></Label>
 
         <ScrollViewer x:Name="ChatViewer" Height="350" Width="640" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,40" Foreground="White"></ScrollViewer>
+        <ScrollViewer x:Name="MessagesViewer" Visibility="Hidden" Height="350" Width="640" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,40" Foreground="White" Panel.ZIndex="3"></ScrollViewer>
 
-        <Button Content="Редактировать" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="2,20,0,0" Click="Edit_Click"></Button>
-        <Button Content="Удалить" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="2,80,0,0" Click="Delete_Click"></Button>
-        <Button x:Name="NewMessageAlert" Content="Новое сообщение!" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="2,140,0,0" Click="ScrollDown_Click" Visibility="Hidden" Background="Green"></Button>
+        <Label x:Name="usernameLabel" HorizontalContentAlignment="Center" BorderBrush="AntiqueWhite" BorderThickness="1" VerticalContentAlignment="Center" FontSize="16" FontFamily="arial" FontWeight="Bold" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,5,0,0"></Label>
+        
+        <Button Content="Редактировать" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="2,50,0,0" Click="Edit_Click"></Button>
+        <Button x:Name="NewMessageAlert" Content="Новое сообщение!" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="2,110,0,0" Click="ScrollDown_Click" Visibility="Hidden" Background="Green"></Button>
         <Button Content="Назад" FontFamily="arial" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment ="Bottom" Margin="2,0,0,10" Click="Back_Click"></Button>
        
         <TextBox x:Name="messageText" Height="40" Width="560" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,80,0" Background="#00ff" BorderBrush="AntiqueWhite" Foreground="White"></TextBox>
 
         <Button Content="Отправить" Height="40" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="#00ff" Panel.ZIndex="-1" Click="Send_Click"></Button>
+
+        <Border Height="200" Width="100" BorderThickness="2" BorderBrush="AntiqueWhite" CornerRadius="20"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,90,0,0"></Border>
+        
+        <Label Content="Имя пользователя:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,180,0,0" FontSize="8"></Label>
+        <TextBox x:Name="nameText" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" AcceptsReturn="True" FontFamily="arial" FontSize="10" Height="25" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,200,0,0"></TextBox>
+
+        <Label Content="Ключевое слово: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,225,0,0" FontSize="8"></Label>
+        <TextBox x:Name="keyWordText" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" AcceptsReturn="True" FontFamily="arial" FontSize="10" Height="25" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,245,0,0"></TextBox>
+
+        <Button Content="Найти" Height="20" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,290,0,0" Click="FindMessage_Click"></Button>
+        <Button x:Name="ReturnChat_Button" Content="Вернуть чат" Visibility="Hidden" Height="20" Width="80" HorizontalAlignment="Left" VerticalAlignment ="Top" Margin="24,310,0,0" Click="ReturnChat_Click"></Button>
     </Grid>
 </Page>

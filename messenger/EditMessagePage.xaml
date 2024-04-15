@@ -9,10 +9,22 @@
       Title="EditMessagePage">
 
     <Grid>
-        <Button Height="60" Width="140" Content="Посмотреть" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20" FontFamily="arial" FontSize="20" Click="Look_Button"></Button>
-        <!--<Button Height="60" Width="140" Content="Закрыть" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" FontFamily="arial" FontSize="20" Click="Back_Button"></Button>-->
-        
-        <ScrollViewer x:Name="messagesViewer" Height="300" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"></ScrollViewer>
-        <Border BorderThickness="2" BorderBrush="White" Height="304" Width="404" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,18,0,0"></Border>
+
+        <ScrollViewer x:Name="messagesViewer" Height="400" Width="380" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Panel.ZIndex="3" Foreground="White"></ScrollViewer>
+        <Border  BorderThickness="2" BorderBrush="Lime" Height="404" Width="386" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"></Border>
+
+        <Image Source="/editPageBG.jpeg" Stretch="Fill" Panel.ZIndex="-1"></Image>
+
+        <Button Height="50" Width="100" Content="Поиск по тексту" HorizontalAlignment="Right" VerticalAlignment="Top" Click="FindMessagesByText_Click" Margin="0,3,0,0"></Button>
+        <TextBox x:Name="FindIt" Height="50" Width="280" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,100,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"></TextBox>
+
+        <Label Height="30" Width="200" Content="Изменить сообщение c ID = " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,140,200" FontFamily="arial" FontSize="14" Foreground="White"></Label>
+        <TextBox x:Name="messageId" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,200"></TextBox>
+        <TextBox x:Name="editMessage" Height="70" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,80" IsEnabled="False"></TextBox>
+
+        <Border Height="200" Width="360" BorderBrush="AntiqueWhite" BorderThickness="2" CornerRadius="23" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,70"></Border>
+        <Button x:Name="findForEdit_Button" Content="Найти сообщение по ID" Height="30" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,40,40,0" Click="FindForEdit_Click" ></Button>
+        <Button x:Name="edit_Button" Content="Сохранить изменения" Height="30" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,40,40,0" Click="Edit_Click" Visibility="Hidden"></Button>
+        <Button x:Name="delete_Button" Content="Удалить" Height="30" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,40,210,0" Click="Delete_Click" Visibility="Hidden"></Button>
     </Grid>
 </Page>

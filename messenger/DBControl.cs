@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace messenger
 {
@@ -20,14 +21,15 @@ namespace messenger
         private static string Password = GetPassword(StringPath);
         private static string Port = "5432";
 
-        public static string ConnString =
-                String.Format(
+        public static string ConnString = String.Format
+            (
                     "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
                     Host,
                     User,
                     DBname,
                     Port,
-                    Password);
+                    Password
+            );
 
         /// <summary>
         /// Получение пароля из файла
@@ -40,10 +42,14 @@ namespace messenger
 
             using (StreamReader sr = new StreamReader(path))
             {
+#pragma warning disable CS8600 // Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.
                 pass = sr.ReadLine();
+#pragma warning restore CS8600 // Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.
             }
 
+#pragma warning disable CS8603 // Возможно, возврат ссылки, допускающей значение NULL.
             return pass;
+#pragma warning restore CS8603 // Возможно, возврат ссылки, допускающей значение NULL.
         }
 
         /// <summary>
@@ -330,7 +336,7 @@ namespace messenger
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE sender LIKE '{InfoClass.GlobalUser}'", conn);
+                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE sender LIKE '{InfoClass.GlobalUser}' ORDER BY \"message_id\" ASC", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -389,7 +395,7 @@ namespace messenger
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\"", conn);
+                var command = new NpgsqlCommand($"SELECT * FROM \"{InfoClass.GlobalChatName}\" ORDER BY \"message_id\" ASC", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -462,6 +468,207 @@ namespace messenger
             InfoClass.GlobalLastMessagesCount = messagesCount;
 
             return newMessages;
+        }
+
+        /// <summary>
+        /// Поиск сообщений содержащих подстроку 'findThisSubstring'.
+        /// При 'methodState' = (true - Искать по текущему пользователю, false - Искать среди всех пользователей)
+        /// </summary>
+        /// <param name="findThisSubstring"></param>
+        /// <param name="methodState"></param>
+        /// <returns></returns>
+        public static List<string> FindMessagesFromUserOrAll(string findThisSubstring, bool methodState)
+        {
+            if (findThisSubstring == null) findThisSubstring = "";
+
+            List<string> messagesFromUser = new List<string>();
+            string commandString = $"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE \"message\" " +
+                $"LIKE CONCAT('%', '{findThisSubstring}', '%') ORDER BY \"message_id\" ASC";
+
+            if (methodState)
+            {
+                commandString = $"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE \"message\" " +
+                    $"LIKE CONCAT('%', '{findThisSubstring}', '%') AND \"sender\" LIKE '{InfoClass.GlobalUser}' ORDER BY \"message_id\" ASC";
+            }
+
+            using(var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using (var command = new NpgsqlCommand(commandString, conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                        messagesFromUser.Add(Convert.ToString(reader.GetValue(0)));
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                        messagesFromUser.Add(Convert.ToString(reader.GetValue(2)));
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                    }
+
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            return messagesFromUser;
+        }
+
+        /// <summary>
+        /// Поиск сообщений от пользователя 'username' содержащих подстроку 'findThisSubstring'
+        /// </summary>
+        /// <param name="findThisSubstring"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static List<string> FindMessagesFromUserOrAll(string findThisSubstring, string username)
+        {
+            if (findThisSubstring == null) findThisSubstring = "";
+            if (username == null) username = "";
+
+            List<string> messagesFromUser = new List<string>();
+            string commandString = $"SELECT * FROM \"{InfoClass.GlobalChatName}\" WHERE \"message\" " +
+                $"LIKE CONCAT('%', '{findThisSubstring}', '%') AND \"sender\" LIKE '{username}' ORDER BY \"message_id\" ASC";
+
+            using (var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using (var command = new NpgsqlCommand(commandString, conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                        messagesFromUser.Add(Convert.ToString(reader.GetValue(0)));
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                        messagesFromUser.Add(Convert.ToString(reader.GetValue(2)));
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+                    }
+
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            return messagesFromUser;
+        }
+
+        /// <summary>
+        /// Возвращает сообщение текущего пользователя по ID
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static string GetMessageFromUsernameAndId(uint messageId)
+        {
+            string message = "";
+            string comm = $"SELECT \"message\" FROM \"{InfoClass.GlobalChatName}\" WHERE \"message_id\" = {messageId}" +
+                $" AND \"sender\" LIKE '{InfoClass.GlobalUser}'";
+
+            using(var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using(var command = new NpgsqlCommand(comm, conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    message = reader.GetString(0);
+
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            return message;
+        }
+
+        /// <summary>
+        /// Обновляет сообщение в БД по ID
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="message"></param>
+        public static void UpdateMessage(uint messageId, string message)
+        {
+            string comm = $"UPDATE \"{InfoClass.GlobalChatName}\" " +
+                $"SET \"message\" = '{message}' WHERE \"message_id\" = {messageId}";
+
+            using( var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using( var command = new NpgsqlCommand(comm, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Удаляет сообщение из текущего чата по ID
+        /// </summary>
+        /// <param name="messageId"></param>
+        public static void DeleteMessage(uint messageId)
+        {
+            string comm = $"DELETE FROM \"{InfoClass.GlobalChatName}\" WHERE \"message_id\" = {messageId}";
+
+            using( var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using(var command = new NpgsqlCommand(comm, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Возвращает цвет пользователя. 'state' = (true - текущий пользователь, false - указанный)
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static string GetUserColor(bool state, string username)
+        {
+            string color;
+
+            string user = username;
+            if(state)
+                user = InfoClass.GlobalUser;
+
+            string comm = $"SELECT \"color\" FROM \"users\" WHERE \"name\" LIKE '{user}'";
+ 
+            using( var conn = new NpgsqlConnection(ConnString))
+            {
+                conn.Open();
+
+                using(var command = new NpgsqlCommand(comm, conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    color = reader.GetString(0);
+                    reader.Close();
+                }
+
+                conn.Close();
+            }
+
+            return color;
         }
     }
 }

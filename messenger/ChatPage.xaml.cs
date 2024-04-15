@@ -31,11 +31,18 @@ namespace messenger
         {
             InitializeComponent();
 
+            usernameLabel.Foreground = SelectedColor(DBControl.GetUserColor(true, ""));
+            usernameLabel.Content = InfoClass.GlobalUser;
+
+            ChatViewer.Visibility = Visibility.Visible;
+            MessagesViewer.Visibility = Visibility.Hidden;
+
             InfoClass.GlobalLastMessagesCount = DBControl.GetCurrentMessagesCount();
             List<string> messages = DBControl.GetAllMassagesFromChat();            
 
             chatName.Content = "Чат: " + InfoClass.GlobalChatName;
             LoadChat(messages);
+            ChatViewer.ScrollToBottom();
 
             chatUpdater = new BackgroundWorker();
             chatUpdater.DoWork += (obj, ea) => UpdateChat();
@@ -49,11 +56,6 @@ namespace messenger
             editWindow.Content = new EditMessagePage();
 
             editWindow.Show();
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void ScrollDown_Click(object sender, RoutedEventArgs e)
@@ -164,12 +166,19 @@ namespace messenger
                                 isChatScrollToTheEnd = true;
                         });
 
+
+                        Visibility isHidden = Visibility.Visible;
+                        ChatViewer.Dispatcher.Invoke(delegate
+                        {
+                            isHidden = ChatViewer.Visibility;
+                        });
+
                         NewMessageAlert.Dispatcher.Invoke(delegate
                         {
-                            if (!isChatScrollToTheEnd)
+                            if (!isChatScrollToTheEnd | (isHidden == Visibility.Hidden))
                             {
                                 NewMessageAlert.Visibility = Visibility.Visible;
-                            }
+                            }                          
                         });
                     }
                 }
@@ -196,6 +205,54 @@ namespace messenger
             }
 
             return Brushes.White;
+        }
+
+        private void FindMessage_Click(object sender, RoutedEventArgs e)
+        {
+            MessagesViewer.Content = "";
+
+            ReturnChat_Button.Visibility = Visibility.Visible;
+            ChatViewer.Visibility = Visibility.Hidden;
+            MessagesViewer.Visibility = Visibility.Visible;
+
+            string name = nameText.Text;
+            string keyWord = keyWordText.Text;
+
+            List<string> messages = DBControl.FindMessagesFromUserOrAll(keyWord, name);
+
+            if (messages.Count == 0)
+            {
+                MessagesViewer.Content = "Ничего не найдено";
+                return;
+            }
+
+            MessagesViewer.Content = "id -> message\n\n";
+
+            while (messages.Count > 0)
+            {
+                if (messages.Count == 2)
+                {
+                    MessagesViewer.Content += messages[0] + " -> " + messages[1];
+                }
+                else
+                {
+                    MessagesViewer.Content += messages[0] + " -> " + messages[1] + "\n\n";
+                }
+
+                messages.RemoveAt(0);
+                messages.RemoveAt(0);
+            }
+        }
+
+        private void ReturnChat_Click(object sender, RoutedEventArgs e)
+        {
+            ChatViewer.Visibility = Visibility.Visible;
+            ChatViewer.ScrollToBottom();
+
+            MessagesViewer.Visibility = Visibility.Hidden;
+            MessagesViewer.Content = "";
+
+            ReturnChat_Button.Visibility = Visibility.Hidden;
         }
     }
 }

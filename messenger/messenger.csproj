@@ -14,6 +14,11 @@
     <None Remove="1613316449_27-p-svetlo-sinii-fon-dlya-fotoshopa-30.jpg" />
     <None Remove="934881-full-size-green-background-images-3240x2160.jpg" />
     <None Remove="a04670bc46fb69817b4220dad637af0f.png" />
+    <None Remove="editPageBG.jpeg" />
+    <None Remove="iconMain.png" />
+    <None Remove="iconMain1.png" />
+    <None Remove="iconMain2.1.png" />
+    <None Remove="iconMain2.jpeg" />
     <None Remove="MAINPAGE_bg.jpg" />
     <None Remove="mdksfg.png" />
     <None Remove="pngw.png" />
@@ -33,6 +38,11 @@
     <Resource Include="1613316449_27-p-svetlo-sinii-fon-dlya-fotoshopa-30.jpg" />
     <Resource Include="934881-full-size-green-background-images-3240x2160.jpg" />
     <Resource Include="a04670bc46fb69817b4220dad637af0f.png" />
+    <Resource Include="editPageBG.jpeg" />
+    <Resource Include="iconMain.png" />
+    <Resource Include="iconMain1.png" />
+    <Resource Include="iconMain2.1.png" />
+    <Resource Include="iconMain2.jpeg" />
     <Resource Include="MAINPAGE_bg.jpg" />
     <Resource Include="mdksfg.png" />
     <Resource Include="pngw.png" />
